@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+const path = require("path");
 const app = express();
 require('dotenv').config();
-console.log(process.env.mongo);
 
 mongoose.set('strictQuery', true),
   mongoose.connect(process.env.mongo,
@@ -25,8 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/stuff', stuffRoutes);
-// app.use('/api/auth', userRoutes);
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
